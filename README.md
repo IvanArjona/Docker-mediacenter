@@ -19,13 +19,18 @@ sudo apt install -y raspberrypi-kernel \
      gnupg2 \
      software-properties-common \
      ntfs-3g \
-     git
+     git \
+     python3 \
+     python3-pip
 ```
 
 Install docker
 ```
 curl -sSL https://get.docker.com | sh
 sudo usermod -aG docker pi
+
+# Install docker compose
+sudo pip3 install docker-compose
 ```
 
 Autostart
