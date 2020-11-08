@@ -11,32 +11,33 @@
 Install dependencies
 
 ```
-sudo apt-get update && sudo apt-get install -y \
+sudo apt install -y raspberrypi-kernel \
+     raspberrypi-kernel-headers \
      apt-transport-https \
      ca-certificates \
      curl \
      gnupg2 \
      software-properties-common \
-     vim \
-     fail2ban \
-     ntfs-3g
+     ntfs-3g \
+     git
 ```
 
-Install Docker
-
+Install docker
 ```
-curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
-sudo apt-key fingerprint 0EBFCD88
-echo "deb [arch=armhf] https://download.docker.com/linux/debian \
-     $(lsb_release -cs) stable" | \
-    sudo tee /etc/apt/sources.list.d/docker.list
-sudo apt-get update && sudo apt-get install -y --no-install-recommends docker-ce docker-compose
+curl -sSL https://get.docker.com | sh
+sudo usermod -aG docker pi
+```
+
+Autostart
+```
+sudo systemctl enable docker
+sudo systemctl start docker
 ```
 
 Save docker temp files in the hard drive
 
 ```
-sudo vim /etc/default/docker
+sudo vi /etc/default/docker
 export DOCKER_TMPDIR="/mnt/storage/docker-tmp"
 ```
 
@@ -50,12 +51,21 @@ docker-compose up -d
 Mount disk
 
 ```
-sudo fdisk -l
-ls -l /dev/disk/by-uuid/
-echo UUID="{UUID}" /mnt/storage defaults,auto 0 0 | sudo tee /etc/fstab
-mount -a (o reiniciar)
+# List disk partitions
+sudo lsblk -o UUID,NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL,MODEL
+
+echo UUID="{UUID}" /mnt/storage ext4 defaults,auto 0 0 | sudo tee /etc/fstab
+mount -a
+```
+
+Clone project
+```
+git clone https://github.com/IvanArjona/Docker-mediacenter.git
 ```
 
 ## Run docker compose
 
-`docker-compose up -d`
+```
+cd Docker-mediacenter
+docker-compose up -d
+```
