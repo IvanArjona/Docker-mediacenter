@@ -1,6 +1,20 @@
 version: "3"
 
 services:
+  nginx:
+    image: linuxserver/nginx
+    container_name: nginx
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    expose:
+      - 80
+    volumes:
+      - ./nginx:/config/www
+    env_file:
+      - .env
+
   transmission:
     image: linuxserver/transmission
     container_name: transmission
