@@ -29,6 +29,8 @@ services:
       - ./transmission:/config
       - ${STORAGE}/downloads:/downloads
       - ${STORAGE}/blackhole:/watch
+      - ${STORAGE}/shows:/data/tvshows
+      - ${STORAGE}/movies:/data/movies
     env_file:
       - .env
 
