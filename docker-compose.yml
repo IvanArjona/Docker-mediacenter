@@ -29,7 +29,7 @@ services:
       - ./transmission:/config
       - ${STORAGE}/downloads:/downloads
       - ${STORAGE}/blackhole:/watch
-      - ${STORAGE}/shows:/data/tvshows
+      - ${STORAGE}/shows:/data/shows
       - ${STORAGE}/movies:/data/movies
     env_file:
       - .env
@@ -45,7 +45,7 @@ services:
       - 8096
     volumes:
       - ./emby:/config
-      - ${STORAGE}/shows:/data/tvshows
+      - ${STORAGE}/shows:/data/shows
       - ${STORAGE}/movies:/data/movies
     env_file:
       - .env
@@ -74,7 +74,7 @@ services:
       - 8989
     volumes:
       - ./sonarr:/config
-      - ${STORAGE}/shows:/tv
+      - ${STORAGE}/shows:/shows
       - ${STORAGE}/downloads/complete:/downloads
     env_file:
       - .env
