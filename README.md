@@ -1,61 +1,27 @@
 # Docker mediacenter
 
 - Transmission: Torrent client
-- Emby: Medicanter
+- Jellyfin: Medicanter
 - Sonarr: Download tv series
 - Radarr: Download movies
 - Jackett: Tracker provider
 
 ## Initial requirements
 
-Install dependencies
+Clone project
 
+```bash
+git clone https://github.com/IvanArjona/Docker-mediacenter.git
 ```
-sudo apt install -y raspberrypi-kernel \
-     raspberrypi-kernel-headers \
-     apt-transport-https \
-     ca-certificates \
-     curl \
-     gnupg2 \
-     software-properties-common \
-     ntfs-3g \
-     git \
-     python3 \
-     python3-pip
-```
+Install docker and all its dependiencies
 
-Install docker
-```
-curl -sSL https://get.docker.com | sh
-sudo usermod -aG docker pi
-
-# Install docker compose
-sudo pip3 install docker-compose
-```
-
-Autostart
-```
-sudo systemctl enable docker
-sudo systemctl start docker
-```
-
-Save docker temp files in the hard drive
-
-```
-sudo vi /etc/default/docker
-export DOCKER_TMPDIR="/mnt/storage/docker-tmp"
-```
-
-Add user to docker group
-
-```
-sudo usermod -a -G docker pi
-docker-compose up -d
+```bash
+./setup.sh
 ```
 
 Mount disk
 
-```
+```bash
 # List disk partitions
 sudo lsblk -o UUID,NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL,MODEL
 
@@ -63,14 +29,14 @@ echo UUID="{UUID}" /mnt/storage ext4 defaults,auto 0 0 | sudo tee /etc/fstab
 mount -a
 ```
 
-Clone project
-```
-git clone https://github.com/IvanArjona/Docker-mediacenter.git
+Save docker temp files in the hard drive
+
+```bash
+echo export DOCKER_TMPDIR=\"/mnt/storage/docker-tmp\" >> /etc/default/docker
 ```
 
-## Run docker compose
+# Run docker compose
 
 ```
-cd Docker-mediacenter
 docker-compose up -d
 ```
