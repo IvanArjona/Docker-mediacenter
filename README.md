@@ -35,6 +35,13 @@ Save docker temp files in the hard drive
 echo export DOCKER_TMPDIR=\"/mnt/storage/docker-tmp\" >> /etc/default/docker
 ```
 
+Mount smb disk
+```bash
+mkdir /mnt/storage
+//192.168.1.1/sda1 /mnt/storage cifs guest,vers=1.0 0 0 >> /etc/fstab
+mount -a
+```
+
 # Run docker compose
 
 ```
